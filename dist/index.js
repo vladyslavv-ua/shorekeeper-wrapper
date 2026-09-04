@@ -41,7 +41,7 @@ function executeRawQuery(query, params, outputFormat) {
         params: {
           query,
           params,
-          outputFormat
+          output: outputFormat
         }
       }),
       onSuccess: function(response) {

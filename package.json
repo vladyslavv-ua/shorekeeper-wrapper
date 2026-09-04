@@ -1,6 +1,6 @@
 {
   "name": "@vladyslavv-ua/shorekeeper-wrapper",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Typed frontend wrapper for Shorekeeper's CEF bridge",
   "license": "MIT",
   "type": "module",
