@@ -18,7 +18,7 @@ export function executeRawQuery(query: string, params: any[], outputFormat: "JSO
                 params: {
                     query: query,
                     params: params,
-                    outputFormat: outputFormat
+                    output: outputFormat
                 }
             }),
             onSuccess: function (response) {
