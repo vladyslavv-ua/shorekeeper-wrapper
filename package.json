@@ -1,0 +1,30 @@
+{
+  "name": "@vladyslavv-ua/shorekeeper-wrapper",
+  "version": "0.1.0",
+  "description": "Typed frontend wrapper for Shorekeeper's CEF bridge",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --sourcemap --clean && tsc --emitDeclarationOnly",
+    "check": "tsc --noEmit",
+    "test": "npm run build && node --test",
+    "prepublishOnly": "npm run check && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2"
+  }
+}

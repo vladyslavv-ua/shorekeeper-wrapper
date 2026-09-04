@@ -1,0 +1,58 @@
+/** Options accepted by the CEF message-router function injected into the page. */
+export interface CefQueryOptions {
+  /** Payload forwarded to the native CEF query handler. */
+  request: string;
+  /** Keep the query open so the native side can send more than one response. */
+  persistent?: boolean;
+  onSuccess?: (response: string) => void;
+  onFailure?: (errorCode: number, errorMessage: string) => void;
+}
+
+/** Signature installed by CEF's `CefMessageRouterBrowserSide`. */
+export type CefQuery = (options: CefQueryOptions) => number;
+
+/** Signature of the optional cancellation function installed by CEF. */
+export type CefQueryCancel = (requestId: number) => void;
+
+declare global {
+  interface Window {
+    cefQuery: CefQuery;
+    cefQueryCancel?: CefQueryCancel;
+  }
+}
+
+export class CefUnavailableError extends Error {
+  constructor() {
+    super(
+      "window.cefQuery is unavailable. Open this page inside the configured CEF host.",
+    );
+    this.name = "CefUnavailableError";
+  }
+}
+
+/** Whether the current browser context has the CEF query bridge installed. */
+export function isCefAvailable(): boolean {
+  return typeof window !== "undefined" && typeof window.cefQuery === "function";
+}
+
+/**
+ * Send a one-shot request to the native CEF host.
+ *
+ * For persistent queries, use the typed `window.cefQuery(...)` API directly.
+ */
+export function cefQuery(request: string): Promise<string> {
+  if (!isCefAvailable()) {
+    return Promise.reject(new CefUnavailableError());
+  }
+
+  return new Promise((resolve, reject) => {
+    window.cefQuery({
+      request,
+      persistent: false,
+      onSuccess: resolve,
+      onFailure: (errorCode, errorMessage) => {
+        reject(new Error(`CEF query failed (${errorCode}): ${errorMessage}`));
+      },
+    });
+  });
+}
