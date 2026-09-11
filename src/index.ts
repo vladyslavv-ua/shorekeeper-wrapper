@@ -5,11 +5,13 @@ export {
 } from "./cef.js"
 
 export {
-    executeRawQuery
+    executeRawQuery,
 }
     from "./queryExecution/executeRawQuery"
 
-
+export {
+    executeQuery,
+} from "./queryExecution/executeQuery"
 export type {
     CefQuery,
     CefQueryCancel,
