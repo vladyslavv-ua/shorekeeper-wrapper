@@ -21,7 +21,6 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var index_exports = {};
 __export(index_exports, {
   CefUnavailableError: () => CefUnavailableError,
-  cefQuery: () => cefQuery,
   executeRawQuery: () => executeRawQuery,
   isCefAvailable: () => isCefAvailable
 });
@@ -38,21 +37,6 @@ var CefUnavailableError = class extends Error {
 };
 function isCefAvailable() {
   return typeof window !== "undefined" && typeof window.cefQuery === "function";
-}
-function cefQuery(request) {
-  if (!isCefAvailable()) {
-    return Promise.reject(new CefUnavailableError());
-  }
-  return new Promise((resolve, reject) => {
-    window.cefQuery({
-      request,
-      persistent: false,
-      onSuccess: resolve,
-      onFailure: (errorCode, errorMessage) => {
-        reject(new Error(`CEF query failed (${errorCode}): ${errorMessage}`));
-      }
-    });
-  });
 }
 
 // src/queryExecution/executeRawQuery.ts
@@ -88,7 +72,6 @@ function executeRawQuery(query, params, outputFormat) {
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   CefUnavailableError,
-  cefQuery,
   executeRawQuery,
   isCefAvailable
 });

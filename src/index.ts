@@ -1,6 +1,6 @@
 export {
     CefUnavailableError,
-    cefQuery,
+    // cefQuery,
     isCefAvailable,
 } from "./cef.js"
 

@@ -27,5 +27,4 @@ export declare function isCefAvailable(): boolean;
  *
  * For persistent queries, use the typed `window.cefQuery(...)` API directly.
  */
-export declare function cefQuery(request: string): Promise<string>;
 //# sourceMappingURL=cef.d.ts.map

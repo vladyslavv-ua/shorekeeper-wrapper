@@ -10,21 +10,6 @@ var CefUnavailableError = class extends Error {
 function isCefAvailable() {
   return typeof window !== "undefined" && typeof window.cefQuery === "function";
 }
-function cefQuery(request) {
-  if (!isCefAvailable()) {
-    return Promise.reject(new CefUnavailableError());
-  }
-  return new Promise((resolve, reject) => {
-    window.cefQuery({
-      request,
-      persistent: false,
-      onSuccess: resolve,
-      onFailure: (errorCode, errorMessage) => {
-        reject(new Error(`CEF query failed (${errorCode}): ${errorMessage}`));
-      }
-    });
-  });
-}
 
 // src/queryExecution/executeRawQuery.ts
 function executeRawQuery(query, params, outputFormat) {
@@ -58,7 +43,6 @@ function executeRawQuery(query, params, outputFormat) {
 }
 export {
   CefUnavailableError,
-  cefQuery,
   executeRawQuery,
   isCefAvailable
 };

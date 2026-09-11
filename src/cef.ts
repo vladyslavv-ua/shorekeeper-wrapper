@@ -40,19 +40,19 @@ export function isCefAvailable(): boolean {
  *
  * For persistent queries, use the typed `window.cefQuery(...)` API directly.
  */
-export function cefQuery(request: string): Promise<string> {
-  if (!isCefAvailable()) {
-    return Promise.reject(new CefUnavailableError());
-  }
-
-  return new Promise((resolve, reject) => {
-    window.cefQuery({
-      request,
-      persistent: false,
-      onSuccess: resolve,
-      onFailure: (errorCode, errorMessage) => {
-        reject(new Error(`CEF query failed (${errorCode}): ${errorMessage}`));
-      },
-    });
-  });
-}
+// export function cefQuery(request: string): Promise<string> {
+//   if (!isCefAvailable()) {
+//     return Promise.reject(new CefUnavailableError());
+//   }
+//
+//   return new Promise((resolve, reject) => {
+//     window.cefQuery({
+//       request,
+//       persistent: false,
+//       onSuccess: resolve,
+//       onFailure: (errorCode, errorMessage) => {
+//         reject(new Error(`CEF query failed (${errorCode}): ${errorMessage}`));
+//       },
+//     });
+//   });
+// }
